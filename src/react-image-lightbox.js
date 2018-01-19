@@ -616,7 +616,6 @@ class ReactImageLightbox extends Component {
         break;
 
       case KEYS.SPACE:
-        console.log('SPACE');
         if (this.props.onSelectImage) {
           this.props.onSelectImage();
         }
@@ -808,7 +807,6 @@ class ReactImageLightbox extends Component {
   }
 
   handleTouchStart(event) {
-    console.log('TOUCH STS');
     if (
       this.shouldHandleEvent(SOURCE_TOUCH) &&
       ReactImageLightbox.isTargetMatchImage(event.target)
@@ -832,7 +830,6 @@ class ReactImageLightbox extends Component {
   }
 
   handleTouchEnd(event) {
-    console.log('TOUCH END');
     if (this.shouldHandleEvent(SOURCE_TOUCH)) {
       [].map.call(event.changedTouches, touch =>
         this.removePointer(ReactImageLightbox.parseTouchPointer(touch))
@@ -935,7 +932,6 @@ class ReactImageLightbox extends Component {
   // - On a mouseDown event
   // - On a touchstart event
   handleMoveStart({ x: clientX, y: clientY }) {
-    console.log('MOVE START');
     if (!this.props.enableZoom) {
       return;
     }
@@ -965,7 +961,6 @@ class ReactImageLightbox extends Component {
   }
 
   handleMoveEnd() {
-    console.log('MOVE END');
     this.currentAction = ACTION_NONE;
     this.moveStartX = 0;
     this.moveStartY = 0;
