@@ -615,6 +615,11 @@ class ReactImageLightbox extends Component {
         this.requestMoveNext(event);
         break;
 
+      case KEYS.SPACE:
+        if (this.props.onSelectImage) {
+          this.props.onSelectImage();
+        }
+        break;
       default:
     }
   }
@@ -1017,6 +1022,7 @@ class ReactImageLightbox extends Component {
     if (xDiffAbs < MIN_SWIPE_DISTANCE) {
       const boxRect = this.getLightboxRect();
       if (xDiffAbs < boxRect.width / 4) {
+        this.props.onSelectImage();
         return;
       }
     }
@@ -1663,6 +1669,10 @@ ReactImageLightbox.propTypes = {
   // Should change the parent state such that the lightbox is not rendered
   onCloseRequest: PropTypes.func.isRequired,
 
+  // Select image
+  // Called when an image is single-clicked
+  onSelectImage: PropTypes.func,
+
   // Move to previous image event
   // Should change the parent state such that props.prevSrc becomes props.mainSrc,
   //  props.mainSrc becomes props.nextSrc, etc.
@@ -1781,6 +1791,7 @@ ReactImageLightbox.defaultProps = {
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,
+  onSelectImage: () => {},
   onAfterOpen: () => {},
   onImageLoadError: () => {},
   onMoveNextRequest: () => {},
