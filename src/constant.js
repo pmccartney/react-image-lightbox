@@ -18,6 +18,7 @@ export const WHEEL_MOVE_Y_THRESHOLD = 1;
 
 export const KEYS = {
   ESC: 27,
+  SPACE: 32,
   LEFT_ARROW: 37,
   RIGHT_ARROW: 39,
 };

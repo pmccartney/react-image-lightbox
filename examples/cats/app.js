@@ -126,6 +126,10 @@ class App extends Component {
     });
   }
 
+  selectHandler() {
+    console.log('SElECTED');
+  }
+
   render() {
     let lightbox;
     if (this.state.isOpen) {
@@ -147,6 +151,7 @@ class App extends Component {
           onImageLoadError={App.onImageLoadError}
           imageTitle={titles[this.state.index]}
           imageCaption={captions[this.state.index]}
+          onSelectImage={this.selectHandler}
         />
       );
     }

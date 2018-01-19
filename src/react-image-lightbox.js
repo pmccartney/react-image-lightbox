@@ -615,6 +615,12 @@ class ReactImageLightbox extends Component {
         this.requestMoveNext(event);
         break;
 
+      case KEYS.SPACE:
+        console.log('SPACE');
+        if (this.props.onSelectImage) {
+          this.props.onSelectImage();
+        }
+        break;
       default:
     }
   }
@@ -802,6 +808,7 @@ class ReactImageLightbox extends Component {
   }
 
   handleTouchStart(event) {
+    console.log('TOUCH STS');
     if (
       this.shouldHandleEvent(SOURCE_TOUCH) &&
       ReactImageLightbox.isTargetMatchImage(event.target)
@@ -825,6 +832,7 @@ class ReactImageLightbox extends Component {
   }
 
   handleTouchEnd(event) {
+    console.log('TOUCH END');
     if (this.shouldHandleEvent(SOURCE_TOUCH)) {
       [].map.call(event.changedTouches, touch =>
         this.removePointer(ReactImageLightbox.parseTouchPointer(touch))
@@ -927,6 +935,7 @@ class ReactImageLightbox extends Component {
   // - On a mouseDown event
   // - On a touchstart event
   handleMoveStart({ x: clientX, y: clientY }) {
+    console.log('MOVE START');
     if (!this.props.enableZoom) {
       return;
     }
@@ -956,6 +965,7 @@ class ReactImageLightbox extends Component {
   }
 
   handleMoveEnd() {
+    console.log('MOVE END');
     this.currentAction = ACTION_NONE;
     this.moveStartX = 0;
     this.moveStartY = 0;
@@ -1017,6 +1027,7 @@ class ReactImageLightbox extends Component {
     if (xDiffAbs < MIN_SWIPE_DISTANCE) {
       const boxRect = this.getLightboxRect();
       if (xDiffAbs < boxRect.width / 4) {
+        this.props.onSelectImage();
         return;
       }
     }
@@ -1663,6 +1674,10 @@ ReactImageLightbox.propTypes = {
   // Should change the parent state such that the lightbox is not rendered
   onCloseRequest: PropTypes.func.isRequired,
 
+  // Select image
+  // Called when an image is single-clicked
+  onSelectImage: PropTypes.func,
+
   // Move to previous image event
   // Should change the parent state such that props.prevSrc becomes props.mainSrc,
   //  props.mainSrc becomes props.nextSrc, etc.
@@ -1781,6 +1796,7 @@ ReactImageLightbox.defaultProps = {
   nextLabel: 'Next image',
   nextSrc: null,
   nextSrcThumbnail: null,
+  onSelectImage: () => {},
   onAfterOpen: () => {},
   onImageLoadError: () => {},
   onMoveNextRequest: () => {},
